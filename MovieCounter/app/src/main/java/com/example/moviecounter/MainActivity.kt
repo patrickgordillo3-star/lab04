@@ -4,12 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -30,7 +29,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MovieCounterTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    ExampleCheckbox(
+                    ExampleSwitch(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -40,9 +39,9 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun ExampleCheckbox(modifier: Modifier = Modifier) {
+fun ExampleSwitch(modifier: Modifier = Modifier) {
 
-    var checked by remember {
+    var enabled by remember {
         mutableStateOf(false)
     }
 
@@ -51,23 +50,25 @@ fun ExampleCheckbox(modifier: Modifier = Modifier) {
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        Checkbox(
-            checked = checked,
+        Switch(
+            checked = enabled,
             onCheckedChange = {
-                checked = it
+                enabled = it
             }
         )
 
         Text(
-            text = "Película vista"
+            text = if (enabled) "Modo película activado"
+            else "Modo película desactivado",
+            modifier = Modifier.padding(start = 8.dp)
         )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun ExampleCheckboxPreview() {
+fun ExampleSwitchPreview() {
     MovieCounterTheme {
-        ExampleCheckbox()
+        ExampleSwitch()
     }
 }
